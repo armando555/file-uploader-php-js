@@ -3,3 +3,5 @@ This is a project for a test to get a job. Use compressor.js for compress the im
 
 To run this project remember apply sudo chmod -R 777 to the repo folder, to write and move the images.
 
+Note: remember don't print or echo a string before the json, it cause error.
+
