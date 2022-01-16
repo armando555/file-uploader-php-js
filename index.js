@@ -13,19 +13,34 @@ window.addEventListener("load", function () {
             quality: 0.6,
             success(result) {
               //TODO
-
-
               console.log(typeof(result));
               console.log(result.name);
               let formData = new FormData();
               formData.append("file",result, result.name);
-              
+              var toastMessage = "";
               const peticion = async function(){
                 let jesus = "";
                 let respuesta = await fetch('files-handler.php',{method:"POST",body:formData})
                 .then((response)=>response.json())
                 .then((objeto)=>{
-                  console.log(objeto.message);
+                  console.log(objeto.message+"SOY JESUS");
+                  if(objeto.success){
+                    $('body')
+                    .toast({
+                        title: 'Heyy!!!',
+                        message: "The file had been uploaded",
+                        showProgress: 'bottom',
+                        classProgress: 'green'
+                    });
+                  }else{
+                    $('body')
+                    .toast({
+                        title: 'OMG!!',
+                        message: "Error: The file had NOT been uploaded, please check the extension has to be .jpg",
+                        showProgress: 'bottom',
+                        classProgress: 'red'
+                    });
+                  }
                   jesus = objeto.message;
                   document.getElementById("demo").innerHTML = objeto.message;
                 }).catch(function(error){
@@ -33,10 +48,11 @@ window.addEventListener("load", function () {
                 });
                 return jesus;
               }
-              console.log(peticion());
-              
-              
-              
+              peticion();
+               /* $('body')
+                    .toast({
+                        message: toastMessage
+                });*/
               /*
               axios.post('files-handler.php',formData).then((objeto)=>{
                 console.log(objeto.message);
